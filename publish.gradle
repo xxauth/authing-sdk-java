@@ -62,11 +62,13 @@ bintray {
     user = binUser
     key = binApiKey
     publications = ['MyPublication']
+    publish = true
     pkg {
         repo = 'xauth'
         name = 'Java'
         userOrg = binUser
         licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/xxauth/authing-sdk-java.git'
         version {
             name = versionCode
             mavenCentralSync {

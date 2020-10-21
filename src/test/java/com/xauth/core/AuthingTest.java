@@ -58,6 +58,11 @@ public class AuthingTest {
     }
 
     @Test
+    public void loginByPhoneCode() throws IOException {
+        System.out.println(client.loginByPhoneCode(new LoginByPhoneCodeParam().phone("18680337676").phoneCode(123456).build()).execute());
+    }
+
+    @Test
     public void loginByOidc() throws IOException {
         System.out.println(client.loginByOidc(new LoginByOidcParam("5e72d72e3798fb03e1d57b13", "931f19ce2161e5560c072f586c706ee6").initWithEmail("test@test.com", "123456").build()).execute());
     }
