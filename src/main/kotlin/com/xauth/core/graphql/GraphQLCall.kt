@@ -9,8 +9,7 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<GraphQLResponse<T>>) :
-    com.xauth.core.http.Call<T> {
+class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<GraphQLResponse<T>>) : com.xauth.core.http.Call<T> {
     /**
      * Gson 对象，用来序列化 Json
      */
@@ -20,7 +19,7 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
      * 开始同步请求
      */
     @Throws(IOException::class, GraphQLException::class)
-    override fun execute(): T? {
+    override fun execute(): T {
         // 开始同步请求
         val response: Response = call.execute()
 
@@ -29,13 +28,9 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
             val body = response.body?.string()
             val graphQLResponse: GraphQLResponse<T> = adapter.fromJson(body)
             if (graphQLResponse.errors != null && graphQLResponse.errors.size > 0) {
-                throw GraphQLException(
-                    gson.toJson(
-                        graphQLResponse.errors
-                    )
-                )
+                throw GraphQLException(gson.toJson(graphQLResponse.errors))
             }
-            return graphQLResponse.data;
+            return graphQLResponse.data!!;
         } else {
             throw IOException("Unexpected code ${response}")
         }
@@ -52,26 +47,16 @@ class GraphQLCall<T>(private val call: Call, private val adapter: TypeAdapter<Gr
                     val graphQLResponse: GraphQLResponse<T> = adapter.fromJson(response.body?.string())
                     if (graphQLResponse.errors?.size!! > 0) {
                         val firstError = graphQLResponse.errors[0].message
-                        callback.onFailure(
-                            GraphQLResponse.ErrorInfo(
-                                firstError?.code ?: 500,
-                                firstError?.message
-                            )
-                        )
+                        callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
                     }
-                    callback.onSuccess(graphQLResponse.data)
+                    callback.onSuccess(graphQLResponse.data!!)
                 } else {
                     throw IOException("Unexpected code $response")
                 }
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
-                callback.onFailure(
-                    GraphQLResponse.ErrorInfo(
-                        500,
-                        e.message
-                    )
-                )
+                callback.onFailure(GraphQLResponse.ErrorInfo(500, e.message))
             }
         }
         // 开始异步请求

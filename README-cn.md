@@ -265,8 +265,8 @@ client.loginByUsername(params)
 示例：
 
 ```java
-import cn.authing.core.Authing;
-import cn.authing.core.types.*;
+import com.xauth.core.Authing;
+import com.xauth.core.types.*;
 
 import java.io.IOException;
 
@@ -317,8 +317,8 @@ client.loginByPhonePassword(params)
 示例：
 
 ```java
-import cn.authing.core.Authing;
-import cn.authing.core.types.*;
+import com.xauth.core.Authing;
+import com.xauth.core.types.*;
 
 import java.io.IOException;
 
@@ -343,8 +343,8 @@ client.loginByLDAP(params)
 示例：
 
 ```java
-import cn.authing.core.Authing;
-import cn.authing.core.types.*;
+import com.xauth.core.Authing;
+import com.xauth.core.types.*;
 
 import java.io.IOException;
 
@@ -400,8 +400,8 @@ client.refreshOidcToken(params)
 示例：
 
 ```java
-import cn.authing.core.Authing;
-import cn.authing.core.types.*;
+import com.xauth.core.Authing;
+import com.xauth.core.types.*;
 
 import java.io.IOException;
 
