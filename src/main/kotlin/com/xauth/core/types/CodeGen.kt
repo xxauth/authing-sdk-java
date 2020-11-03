@@ -16,16 +16,16 @@ data class Query(
     var socialConnection: SocialConnection? = null,
     /** @param [socialConnections] 获取所有社会化登录定义 */
     @SerializedName("socialConnections")
-    var socialConnections: Iterable<SocialConnection>,
+    var socialConnections: List<SocialConnection>,
     /** @param [socialConnectionInstance] 获取当前用户池的社会化登录配置 */
     @SerializedName("socialConnectionInstance")
     var socialConnectionInstance: SocialConnectionInstance,
     /** @param [socialConnectionInstances] 获取当前用户池的所有社会化登录配置 */
     @SerializedName("socialConnectionInstances")
-    var socialConnectionInstances: Iterable<SocialConnectionInstance>,
+    var socialConnectionInstances: List<SocialConnectionInstance>,
     /** @param [emailTemplates] emailTemplates */
     @SerializedName("emailTemplates")
-    var emailTemplates: Iterable<EmailTemplate>,
+    var emailTemplates: List<EmailTemplate>,
     /** @param [previewEmail] previewEmail */
     @SerializedName("previewEmail")
     var previewEmail: String,
@@ -61,7 +61,7 @@ data class Query(
     var orgs: PaginatedOrgs,
     /** @param [childrenNodes] 查询子节点列表 */
     @SerializedName("childrenNodes")
-    var childrenNodes: Iterable<Node>,
+    var childrenNodes: List<Node>,
     /** @param [rootNode] rootNode */
     @SerializedName("rootNode")
     var rootNode: Node,
@@ -85,7 +85,7 @@ data class Query(
     var policies: PaginatedPolicies,
     /** @param [policyAssignments] policyAssignments */
     @SerializedName("policyAssignments")
-    var policyAssignments: PaginatedPolicyAssignment,
+    var policyAssignments: PaginatedPolicyAssignments,
     /** @param [role] 通过 **code** 查询角色详情 */
     @SerializedName("role")
     var role: Role? = null,
@@ -94,16 +94,16 @@ data class Query(
     var roles: PaginatedRoles,
     /** @param [udv] 查询某个实体定义的自定义数据 */
     @SerializedName("udv")
-    var udv: Iterable<UserDefinedData>,
+    var udv: List<UserDefinedData>,
     /** @param [udf] 查询用户池定义的自定义字段 */
     @SerializedName("udf")
-    var udf: Iterable<UserDefinedField>,
+    var udf: List<UserDefinedField>,
     /** @param [user] user */
     @SerializedName("user")
     var user: User? = null,
     /** @param [userBatch] userBatch */
     @SerializedName("userBatch")
-    var userBatch: Iterable<User>,
+    var userBatch: List<User>,
     /** @param [users] users */
     @SerializedName("users")
     var users: PaginatedUsers,
@@ -116,6 +116,9 @@ data class Query(
     /** @param [isUserExists] isUserExists */
     @SerializedName("isUserExists")
     var isUserExists: Boolean? = null,
+    /** @param [findUser] findUser */
+    @SerializedName("findUser")
+    var findUser: User? = null,
     /** @param [userpool] 查询用户池详情 */
     @SerializedName("userpool")
     var userpool: UserPool,
@@ -124,13 +127,13 @@ data class Query(
     var userpools: PaginatedUserpool,
     /** @param [userpoolTypes] userpoolTypes */
     @SerializedName("userpoolTypes")
-    var userpoolTypes: Iterable<UserPoolType>,
+    var userpoolTypes: List<UserPoolType>,
     /** @param [accessToken] 获取 accessToken ，如 SDK 初始化 */
     @SerializedName("accessToken")
     var accessToken: AccessTokenRes,
     /** @param [whitelist] 用户池注册白名单列表 */
     @SerializedName("whitelist")
-    var whitelist: Iterable<WhiteList>
+    var whitelist: List<WhiteList>
 )
 
 
@@ -149,7 +152,7 @@ data class SocialConnection(
     var description: String? = null,
     /** @param [fields] 表单字段 */
     @SerializedName("fields")
-    var fields: Iterable<SocialConnectionField>? = null
+    var fields: List<SocialConnectionField>? = null
 )
 
 
@@ -168,7 +171,7 @@ data class SocialConnectionField(
     var placeholder: String? = null,
     /** @param [children] children */
     @SerializedName("children")
-    var children: Iterable<SocialConnectionField>? = null
+    var children: List<SocialConnectionField>? = null
 )
 
 
@@ -181,7 +184,7 @@ data class SocialConnectionInstance(
     var enabled: Boolean,
     /** @param [fields] fields */
     @SerializedName("fields")
-    var fields: Iterable<SocialConnectionInstanceField>? = null
+    var fields: List<SocialConnectionInstanceField>? = null
 )
 
 
@@ -229,12 +232,12 @@ data class EmailTemplate(
 )
 
 enum class EmailTemplateType(val label: String) {
-    ResetPassword("RESET_PASSWORD"),
-    PasswordResetedNotification("PASSWORD_RESETED_NOTIFICATION"),
-    ChangePassword("CHANGE_PASSWORD"),
-    Welcome("WELCOME"),
-    VerifyEmail("VERIFY_EMAIL"),
-    ChangeEmail("CHANGE_EMAIL");
+    RESET_PASSWORD("RESET_PASSWORD"),
+    PASSWORD_RESETED_NOTIFICATION("PASSWORD_RESETED_NOTIFICATION"),
+    CHANGE_PASSWORD("CHANGE_PASSWORD"),
+    WELCOME("WELCOME"),
+    VERIFY_EMAIL("VERIFY_EMAIL"),
+    CHANGE_EMAIL("CHANGE_EMAIL");
 
     companion object {
         @JvmStatic
@@ -267,10 +270,10 @@ data class Function(
 )
 
 enum class SortByEnum(val label: String) {
-    CreatedatDesc("CREATEDAT_DESC"),
-    CreatedatAsc("CREATEDAT_ASC"),
-    UpdatedatDesc("UPDATEDAT_DESC"),
-    UpdatedatAsc("UPDATEDAT_ASC");
+    CREATEDAT_DESC("CREATEDAT_DESC"),
+    CREATEDAT_ASC("CREATEDAT_ASC"),
+    UPDATEDAT_DESC("UPDATEDAT_DESC"),
+    UPDATEDAT_ASC("UPDATEDAT_ASC");
 
     companion object {
         @JvmStatic
@@ -284,7 +287,7 @@ enum class SortByEnum(val label: String) {
 data class PaginatedFunctions(
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<Function>,
+    var list: List<Function>,
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
     var totalCount: Int
@@ -319,7 +322,7 @@ data class PaginatedUsers(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: ArrayList<User>
+    var list: List<User>
 )
 
 
@@ -356,14 +359,14 @@ data class User(
     var openid: String? = null,
     /** @param [identities] 用户的身份信息 */
     @SerializedName("identities")
-    var identities: Iterable<Identity>? = null,
+    var identities: List<Identity>? = null,
     /** @param [nickname] 昵称，该字段不唯一。 */
     @SerializedName("nickname")
     var nickname: String? = null,
     /** @param [registerSource] 注册方式 */
     @SerializedName("registerSource")
-    var registerSource: ArrayList<String>,
-    /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
+    var registerSource: List<String>,
+    /** @param [photo] 头像链接，默认为 https://xauth.lucfish.com/ */
     @SerializedName("photo")
     var photo: String? = null,
     /** @param [password] 用户密码，数据库使用密钥加 salt 进行加密，非原文密码。 */
@@ -511,7 +514,7 @@ data class PaginatedRoles(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<Role>
+    var list: List<Role>
 )
 
 
@@ -549,7 +552,7 @@ data class PaginatedGroups(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<Group>
+    var list: List<Group>
 )
 
 
@@ -602,7 +605,7 @@ data class Node(
     var depth: Int? = null,
     /** @param [path] path */
     @SerializedName("path")
-    var path: Iterable<String>,
+    var path: List<String>,
     /** @param [createdAt] createdAt */
     @SerializedName("createdAt")
     var createdAt: String? = null,
@@ -611,7 +614,7 @@ data class Node(
     var updatedAt: String? = null,
     /** @param [children] 该节点的子节点 **ID** 列表 */
     @SerializedName("children")
-    var children: Iterable<String>? = null,
+    var children: List<String>? = null,
     /** @param [users] 节点的用户列表 */
     @SerializedName("users")
     var users: PaginatedUsers
@@ -627,7 +630,7 @@ data class Org(
     var rootNode: Node,
     /** @param [nodes] 组织机构节点列表 */
     @SerializedName("nodes")
-    var nodes: Iterable<Node>
+    var nodes: List<Node>
 )
 
 
@@ -637,7 +640,7 @@ data class PaginatedOrgs(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<Org>
+    var list: List<Org>
 )
 
 
@@ -663,7 +666,7 @@ data class Policy(
     var description: String? = null,
     /** @param [statements] statements */
     @SerializedName("statements")
-    var statements: Iterable<PolicyStatement>,
+    var statements: List<PolicyStatement>,
     /** @param [createdAt] createdAt */
     @SerializedName("createdAt")
     var createdAt: String? = null,
@@ -675,7 +678,7 @@ data class Policy(
     var assignmentsCount: Int,
     /** @param [assignments] 授权记录 */
     @SerializedName("assignments")
-    var assignments: Iterable<PolicyAssignment>
+    var assignments: List<PolicyAssignment>
 )
 
 
@@ -685,15 +688,15 @@ data class PolicyStatement(
     var resource: String,
     /** @param [actions] actions */
     @SerializedName("actions")
-    var actions: Iterable<String>,
+    var actions: List<String>,
     /** @param [effect] effect */
     @SerializedName("effect")
     var effect: PolicyEffect? = null
 )
 
 enum class PolicyEffect(val label: String) {
-    Allow("ALLOW"),
-    Deny("DENY");
+    ALLOW("ALLOW"),
+    DENY("DENY");
 
     companion object {
         @JvmStatic
@@ -717,8 +720,8 @@ data class PolicyAssignment(
 )
 
 enum class PolicyAssignmentTargetType(val label: String) {
-    User("USER"),
-    Role("ROLE");
+    USER("USER"),
+    ROLE("ROLE");
 
     companion object {
         @JvmStatic
@@ -735,27 +738,27 @@ data class PaginatedPolicies(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<Policy>
+    var list: List<Policy>
 )
 
 
-data class PaginatedPolicyAssignment(
+data class PaginatedPolicyAssignments(
     /** @param [totalCount] totalCount */
     @SerializedName("totalCount")
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<PolicyAssignment>
+    var list: List<PolicyAssignment>
 )
 
 enum class UdfTargetType(val label: String) {
-    Node("NODE"),
-    Org("ORG"),
-    User("USER"),
-    Userpool("USERPOOL"),
-    Role("ROLE"),
-    Permission("PERMISSION"),
-    Application("APPLICATION");
+    NODE("NODE"),
+    ORG("ORG"),
+    USER("USER"),
+    USERPOOL("USERPOOL"),
+    ROLE("ROLE"),
+    PERMISSION("PERMISSION"),
+    APPLICATION("APPLICATION");
 
     companion object {
         @JvmStatic
@@ -779,11 +782,11 @@ data class UserDefinedData(
 )
 
 enum class UdfDataType(val label: String) {
-    EString("STRING"),
-    ENumber("NUMBER"),
-    EDatetime("DATETIME"),
-    EBoolean("BOOLEAN"),
-    EObject("OBJECT");
+    STRING("STRING"),
+    NUMBER("NUMBER"),
+    DATETIME("DATETIME"),
+    BOOLEAN("BOOLEAN"),
+    OBJECT("OBJECT");
 
     companion object {
         @JvmStatic
@@ -869,7 +872,7 @@ data class UserPool(
     var jwtSecret: String,
     /** @param [userpoolTypes] userpoolTypes */
     @SerializedName("userpoolTypes")
-    var userpoolTypes: Iterable<UserPoolType>? = null,
+    var userpoolTypes: List<UserPoolType>? = null,
     /** @param [logo] logo */
     @SerializedName("logo")
     var logo: String,
@@ -943,7 +946,7 @@ data class UserPoolType(
     var image: String? = null,
     /** @param [sdks] sdks */
     @SerializedName("sdks")
-    var sdks: Iterable<String>? = null
+    var sdks: List<String>? = null
 )
 
 
@@ -1064,7 +1067,7 @@ data class PaginatedUserpool(
     var totalCount: Int,
     /** @param [list] list */
     @SerializedName("list")
-    var list: Iterable<UserPool>
+    var list: List<UserPool>
 )
 
 
@@ -1081,9 +1084,9 @@ data class AccessTokenRes(
 )
 
 enum class WhitelistType(val label: String) {
-    Username("USERNAME"),
-    Email("EMAIL"),
-    Phone("PHONE");
+    USERNAME("USERNAME"),
+    EMAIL("EMAIL"),
+    PHONE("PHONE");
 
     companion object {
         @JvmStatic
@@ -1239,25 +1242,25 @@ data class Mutation(
     var deleteRole: CommonMessage,
     /** @param [deleteRoles] 批量删除角色 */
     @SerializedName("deleteRoles")
-    var deleteRoles: BatchOperationResult,
+    var deleteRoles: CommonMessage,
     /** @param [assignRole] 给用户授权角色 */
     @SerializedName("assignRole")
     var assignRole: CommonMessage? = null,
     /** @param [revokeRole] 撤销角色 */
     @SerializedName("revokeRole")
     var revokeRole: CommonMessage? = null,
-    /** @param [addUdf] addUdf */
-    @SerializedName("addUdf")
-    var addUdf: Iterable<UserDefinedField>,
+    /** @param [setUdf] setUdf */
+    @SerializedName("setUdf")
+    var setUdf: UserDefinedField,
     /** @param [removeUdf] removeUdf */
     @SerializedName("removeUdf")
-    var removeUdf: Iterable<UserDefinedField>,
+    var removeUdf: CommonMessage? = null,
     /** @param [setUdv] setUdv */
     @SerializedName("setUdv")
-    var setUdv: Iterable<UserDefinedData>? = null,
+    var setUdv: List<UserDefinedData>? = null,
     /** @param [removeUdv] removeUdv */
     @SerializedName("removeUdv")
-    var removeUdv: Iterable<UserDefinedData>? = null,
+    var removeUdv: List<UserDefinedData>? = null,
     /** @param [refreshToken] refreshToken */
     @SerializedName("refreshToken")
     var refreshToken: RefreshToken? = null,
@@ -1308,10 +1311,10 @@ data class Mutation(
     var refreshAccessToken: RefreshAccessTokenRes,
     /** @param [addWhitelist] addWhitelist */
     @SerializedName("addWhitelist")
-    var addWhitelist: Iterable<WhiteList>,
+    var addWhitelist: List<WhiteList>,
     /** @param [removeWhitelist] removeWhitelist */
     @SerializedName("removeWhitelist")
-    var removeWhitelist: Iterable<WhiteList>
+    var removeWhitelist: List<WhiteList>
 )
 
 
@@ -1330,7 +1333,7 @@ data class CreateSocialConnectionInput @JvmOverloads constructor(
     var description: String? = null,
     /** @param [fields] fields */
     @SerializedName("fields")
-    var fields: Iterable<SocialConnectionFieldInput>? = null
+    var fields: List<SocialConnectionFieldInput>? = null
 ) {
 
     /** @param [description] description */
@@ -1340,7 +1343,7 @@ data class CreateSocialConnectionInput @JvmOverloads constructor(
     }
 
     /** @param [fields] fields */
-    fun withFields(fields: Iterable<SocialConnectionFieldInput>): CreateSocialConnectionInput {
+    fun withFields(fields: List<SocialConnectionFieldInput>): CreateSocialConnectionInput {
         this.fields = fields
         return this
     }
@@ -1366,7 +1369,7 @@ data class SocialConnectionFieldInput @JvmOverloads constructor(
     var placeholder: String? = null,
     /** @param [children] children */
     @SerializedName("children")
-    var children: Iterable<SocialConnectionFieldInput>? = null
+    var children: List<SocialConnectionFieldInput>? = null
 ) {
 
     /** @param [key] key */
@@ -1394,7 +1397,7 @@ data class SocialConnectionFieldInput @JvmOverloads constructor(
     }
 
     /** @param [children] children */
-    fun withChildren(children: Iterable<SocialConnectionFieldInput>): SocialConnectionFieldInput {
+    fun withChildren(children: List<SocialConnectionFieldInput>): SocialConnectionFieldInput {
         this.children = children
         return this
     }
@@ -1411,11 +1414,11 @@ data class CreateSocialConnectionInstanceInput @JvmOverloads constructor(
     var provider: String,
     /** @param [fields] fields */
     @SerializedName("fields")
-    var fields: Iterable<CreateSocialConnectionInstanceFieldInput>? = null
+    var fields: List<CreateSocialConnectionInstanceFieldInput>? = null
 ) {
 
     /** @param [fields] fields */
-    fun withFields(fields: Iterable<CreateSocialConnectionInstanceFieldInput>): CreateSocialConnectionInstanceInput {
+    fun withFields(fields: List<CreateSocialConnectionInstanceFieldInput>): CreateSocialConnectionInstanceInput {
         this.fields = fields
         return this
     }
@@ -1494,9 +1497,9 @@ data class ConfigEmailTemplateInput @JvmOverloads constructor(
 
 /** 邮件使用场景 */
 enum class EmailScene(val label: String) {
-    ResetPassword("RESET_PASSWORD"),
-    VerifyEmail("VERIFY_EMAIL"),
-    ChangeEmail("CHANGE_EMAIL");
+    RESET_PASSWORD("RESET_PASSWORD"),
+    VERIFY_EMAIL("VERIFY_EMAIL"),
+    CHANGE_EMAIL("CHANGE_EMAIL");
 
     companion object {
         @JvmStatic
@@ -1611,7 +1614,10 @@ data class LoginByEmailInput @JvmOverloads constructor(
     var captchaCode: String? = null,
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     @SerializedName("autoRegister")
-    var autoRegister: Boolean? = null
+    var autoRegister: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1623,6 +1629,12 @@ data class LoginByEmailInput @JvmOverloads constructor(
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     fun withAutoRegister(autoRegister: Boolean): LoginByEmailInput {
         this.autoRegister = autoRegister
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): LoginByEmailInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -1644,7 +1656,10 @@ data class LoginByUsernameInput @JvmOverloads constructor(
     var captchaCode: String? = null,
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     @SerializedName("autoRegister")
-    var autoRegister: Boolean? = null
+    var autoRegister: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1656,6 +1671,12 @@ data class LoginByUsernameInput @JvmOverloads constructor(
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     fun withAutoRegister(autoRegister: Boolean): LoginByUsernameInput {
         this.autoRegister = autoRegister
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): LoginByUsernameInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -1674,12 +1695,21 @@ data class LoginByPhoneCodeInput @JvmOverloads constructor(
     var code: String,
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     @SerializedName("autoRegister")
-    var autoRegister: Boolean? = null
+    var autoRegister: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     fun withAutoRegister(autoRegister: Boolean): LoginByPhoneCodeInput {
         this.autoRegister = autoRegister
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): LoginByPhoneCodeInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -1701,7 +1731,10 @@ data class LoginByPhonePasswordInput @JvmOverloads constructor(
     var captchaCode: String? = null,
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     @SerializedName("autoRegister")
-    var autoRegister: Boolean? = null
+    var autoRegister: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [captchaCode] 图形验证码 */
@@ -1713,6 +1746,12 @@ data class LoginByPhonePasswordInput @JvmOverloads constructor(
     /** @param [autoRegister] 如果用户不存在，是否自动创建一个账号 */
     fun withAutoRegister(autoRegister: Boolean): LoginByPhonePasswordInput {
         this.autoRegister = autoRegister
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): LoginByPhonePasswordInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -1728,7 +1767,7 @@ data class PolicyStatementInput @JvmOverloads constructor(
     var resource: String,
     /** @param [actions] actions */
     @SerializedName("actions")
-    var actions: Iterable<String>,
+    var actions: List<String>,
     /** @param [effect] effect */
     @SerializedName("effect")
     var effect: PolicyEffect? = null
@@ -1761,7 +1800,10 @@ data class RegisterByUsernameInput @JvmOverloads constructor(
     var forceLogin: Boolean? = null,
     /** @param [generateToken] generateToken */
     @SerializedName("generateToken")
-    var generateToken: Boolean? = null
+    var generateToken: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [profile] profile */
@@ -1779,6 +1821,12 @@ data class RegisterByUsernameInput @JvmOverloads constructor(
     /** @param [generateToken] generateToken */
     fun withGenerateToken(generateToken: Boolean): RegisterByUsernameInput {
         this.generateToken = generateToken
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): RegisterByUsernameInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -1866,7 +1914,7 @@ data class RegisterProfileInput @JvmOverloads constructor(
     var country: String? = null,
     /** @param [udf] udf */
     @SerializedName("udf")
-    var udf: Iterable<UserDdfInput>? = null
+    var udf: List<UserDdfInput>? = null
 ) {
 
     /** @param [ip] ip */
@@ -2020,7 +2068,7 @@ data class RegisterProfileInput @JvmOverloads constructor(
     }
 
     /** @param [udf] udf */
-    fun withUdf(udf: Iterable<UserDdfInput>): RegisterProfileInput {
+    fun withUdf(udf: List<UserDdfInput>): RegisterProfileInput {
         this.udf = udf
         return this
     }
@@ -2062,7 +2110,10 @@ data class RegisterByEmailInput @JvmOverloads constructor(
     var forceLogin: Boolean? = null,
     /** @param [generateToken] generateToken */
     @SerializedName("generateToken")
-    var generateToken: Boolean? = null
+    var generateToken: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [profile] profile */
@@ -2080,6 +2131,12 @@ data class RegisterByEmailInput @JvmOverloads constructor(
     /** @param [generateToken] generateToken */
     fun withGenerateToken(generateToken: Boolean): RegisterByEmailInput {
         this.generateToken = generateToken
+        return this
+    }
+
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): RegisterByEmailInput {
+        this.clientIp = clientIp
         return this
     }
 
@@ -2107,7 +2164,10 @@ data class RegisterByPhoneCodeInput @JvmOverloads constructor(
     var forceLogin: Boolean? = null,
     /** @param [generateToken] generateToken */
     @SerializedName("generateToken")
-    var generateToken: Boolean? = null
+    var generateToken: Boolean? = null,
+    /** @param [clientIp] clientIp */
+    @SerializedName("clientIp")
+    var clientIp: String? = null
 ) {
 
     /** @param [password] password */
@@ -2134,29 +2194,16 @@ data class RegisterByPhoneCodeInput @JvmOverloads constructor(
         return this
     }
 
+    /** @param [clientIp] clientIp */
+    fun withClientIp(clientIp: String): RegisterByPhoneCodeInput {
+        this.clientIp = clientIp
+        return this
+    }
+
     fun build(): RegisterByPhoneCodeInput {
         return this
     }
 }
-
-
-/**
- * 批量删除返回结果
- */
-data class BatchOperationResult(
-    /** @param [succeedCount] 删除成功的个数 */
-    @SerializedName("succeedCount")
-    var succeedCount: Int,
-    /** @param [failedCount] 删除失败的个数 */
-    @SerializedName("failedCount")
-    var failedCount: Int,
-    /** @param [message] message */
-    @SerializedName("message")
-    var message: String? = null,
-    /** @param [errors] errors */
-    @SerializedName("errors")
-    var errors: Iterable<String>? = null
-)
 
 
 data class RefreshToken(
@@ -2176,7 +2223,7 @@ data class CreateUserInput @JvmOverloads constructor(
     /** @param [username] 用户名，用户池内唯一 */
     @SerializedName("username")
     var username: String? = null,
-    /** @param [email] 邮箱，用户池内唯一 */
+    /** @param [email] 邮箱，不区分大小写，如 Bob@example.com 和 bob@example.com 会识别为同一个邮箱。用户池内唯一。 */
     @SerializedName("email")
     var email: String? = null,
     /** @param [emailVerified] 邮箱是否已验证 */
@@ -2197,7 +2244,7 @@ data class CreateUserInput @JvmOverloads constructor(
     /** @param [nickname] 昵称，该字段不唯一。 */
     @SerializedName("nickname")
     var nickname: String? = null,
-    /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
+    /** @param [photo] 头像链接，默认为 https://xauth.lucfish.com/ */
     @SerializedName("photo")
     var photo: String? = null,
     /** @param [password] password */
@@ -2205,7 +2252,7 @@ data class CreateUserInput @JvmOverloads constructor(
     var password: String? = null,
     /** @param [registerSource] 注册方式 */
     @SerializedName("registerSource")
-    var registerSource: Iterable<String>? = null,
+    var registerSource: List<String>? = null,
     /** @param [browser] browser */
     @SerializedName("browser")
     var browser: String? = null,
@@ -2298,7 +2345,7 @@ data class CreateUserInput @JvmOverloads constructor(
         return this
     }
 
-    /** @param [email] 邮箱，用户池内唯一 */
+    /** @param [email] 邮箱，不区分大小写，如 Bob@example.com 和 bob@example.com 会识别为同一个邮箱。用户池内唯一。 */
     fun withEmail(email: String): CreateUserInput {
         this.email = email
         return this
@@ -2340,7 +2387,7 @@ data class CreateUserInput @JvmOverloads constructor(
         return this
     }
 
-    /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
+    /** @param [photo] 头像链接，默认为 https://xauth.lucfish.com/ */
     fun withPhoto(photo: String): CreateUserInput {
         this.photo = photo
         return this
@@ -2353,7 +2400,7 @@ data class CreateUserInput @JvmOverloads constructor(
     }
 
     /** @param [registerSource] 注册方式 */
-    fun withRegisterSource(registerSource: Iterable<String>): CreateUserInput {
+    fun withRegisterSource(registerSource: List<String>): CreateUserInput {
         this.registerSource = registerSource
         return this
     }
@@ -2560,7 +2607,7 @@ data class UpdateUserInput @JvmOverloads constructor(
     /** @param [password] 密码。直接修改用户密码需要管理员权限，普通用户修改邮箱请使用 **updatePassword** 接口。 */
     @SerializedName("password")
     var password: String? = null,
-    /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
+    /** @param [photo] 头像链接，默认为 https://xauth.lucfish.com/ */
     @SerializedName("photo")
     var photo: String? = null,
     /** @param [company] 注册方式 */
@@ -2706,7 +2753,7 @@ data class UpdateUserInput @JvmOverloads constructor(
         return this
     }
 
-    /** @param [photo] 头像链接，默认为 https://usercontents.authing.cn/authing-avatar.png */
+    /** @param [photo] 头像链接，默认为 https://xauth.lucfish.com/ */
     fun withPhoto(photo: String): UpdateUserInput {
         this.photo = photo
         return this
@@ -2907,7 +2954,7 @@ data class UpdateUserpoolInput @JvmOverloads constructor(
     var description: String? = null,
     /** @param [userpoolTypes] userpoolTypes */
     @SerializedName("userpoolTypes")
-    var userpoolTypes: Iterable<String>? = null,
+    var userpoolTypes: List<String>? = null,
     /** @param [emailVerifiedDefault] emailVerifiedDefault */
     @SerializedName("emailVerifiedDefault")
     var emailVerifiedDefault: Boolean? = null,
@@ -2923,12 +2970,6 @@ data class UpdateUserpoolInput @JvmOverloads constructor(
     /** @param [tokenExpiresAfter] tokenExpiresAfter */
     @SerializedName("tokenExpiresAfter")
     var tokenExpiresAfter: Int? = null,
-    /** @param [emailWhitelistEnabled] emailWhitelistEnabled */
-    @SerializedName("emailWhitelistEnabled")
-    var emailWhitelistEnabled: Boolean? = null,
-    /** @param [phoneWhitelistEnabled] phoneWhitelistEnabled */
-    @SerializedName("phoneWhitelistEnabled")
-    var phoneWhitelistEnabled: Boolean? = null,
     /** @param [frequentRegisterCheck] frequentRegisterCheck */
     @SerializedName("frequentRegisterCheck")
     var frequentRegisterCheck: FrequentRegisterCheckConfigInput? = null,
@@ -2980,7 +3021,7 @@ data class UpdateUserpoolInput @JvmOverloads constructor(
     }
 
     /** @param [userpoolTypes] userpoolTypes */
-    fun withUserpoolTypes(userpoolTypes: Iterable<String>): UpdateUserpoolInput {
+    fun withUserpoolTypes(userpoolTypes: List<String>): UpdateUserpoolInput {
         this.userpoolTypes = userpoolTypes
         return this
     }
@@ -3012,18 +3053,6 @@ data class UpdateUserpoolInput @JvmOverloads constructor(
     /** @param [tokenExpiresAfter] tokenExpiresAfter */
     fun withTokenExpiresAfter(tokenExpiresAfter: Int): UpdateUserpoolInput {
         this.tokenExpiresAfter = tokenExpiresAfter
-        return this
-    }
-
-    /** @param [emailWhitelistEnabled] emailWhitelistEnabled */
-    fun withEmailWhitelistEnabled(emailWhitelistEnabled: Boolean): UpdateUserpoolInput {
-        this.emailWhitelistEnabled = emailWhitelistEnabled
-        return this
-    }
-
-    /** @param [phoneWhitelistEnabled] phoneWhitelistEnabled */
-    fun withPhoneWhitelistEnabled(phoneWhitelistEnabled: Boolean): UpdateUserpoolInput {
-        this.phoneWhitelistEnabled = phoneWhitelistEnabled
         return this
     }
 
@@ -3371,6 +3400,25 @@ data class RefreshAccessTokenRes(
 )
 
 
+/**
+ * 批量删除返回结果
+ */
+data class BatchOperationResult(
+    /** @param [succeedCount] 删除成功的个数 */
+    @SerializedName("succeedCount")
+    var succeedCount: Int,
+    /** @param [failedCount] 删除失败的个数 */
+    @SerializedName("failedCount")
+    var failedCount: Int,
+    /** @param [message] message */
+    @SerializedName("message")
+    var message: String? = null,
+    /** @param [errors] errors */
+    @SerializedName("errors")
+    var errors: List<String>? = null
+)
+
+
 data class KeyValuePair(
     /** @param [key] key */
     @SerializedName("key")
@@ -3403,47 +3451,47 @@ class AddMemberParam @JvmOverloads constructor(
     @SerializedName("nodeCode")
     var nodeCode: String? = null,
     @SerializedName("userIds")
-    var userIds: Iterable<String>,
+    var userIds: List<String>,
     @SerializedName("isLeader")
     var isLeader: Boolean? = null
 ) {
 
-    fun withPage(page: Int): AddMemberParam {
+    fun withPage(page: Int?): AddMemberParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): AddMemberParam {
+    fun withLimit(limit: Int?): AddMemberParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): AddMemberParam {
+    fun withSortBy(sortBy: SortByEnum?): AddMemberParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): AddMemberParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): AddMemberParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
 
-    fun withNodeId(nodeId: String): AddMemberParam {
+    fun withNodeId(nodeId: String?): AddMemberParam {
         this.nodeId = nodeId
         return this
     }
 
-    fun withOrgId(orgId: String): AddMemberParam {
+    fun withOrgId(orgId: String?): AddMemberParam {
         this.orgId = orgId
         return this
     }
 
-    fun withNodeCode(nodeCode: String): AddMemberParam {
+    fun withNodeCode(nodeCode: String?): AddMemberParam {
         this.nodeCode = nodeCode
         return this
     }
 
-    fun withIsLeader(isLeader: Boolean): AddMemberParam {
+    fun withIsLeader(isLeader: Boolean?): AddMemberParam {
         this.isLeader = isLeader
         return this
     }
@@ -3559,32 +3607,32 @@ class AddNodeParam @JvmOverloads constructor(
     var code: String? = null
 ) {
 
-    fun withParentNodeId(parentNodeId: String): AddNodeParam {
+    fun withParentNodeId(parentNodeId: String?): AddNodeParam {
         this.parentNodeId = parentNodeId
         return this
     }
 
-    fun withNameI18n(nameI18n: String): AddNodeParam {
+    fun withNameI18n(nameI18n: String?): AddNodeParam {
         this.nameI18n = nameI18n
         return this
     }
 
-    fun withDescription(description: String): AddNodeParam {
+    fun withDescription(description: String?): AddNodeParam {
         this.description = description
         return this
     }
 
-    fun withDescriptionI18n(descriptionI18n: String): AddNodeParam {
+    fun withDescriptionI18n(descriptionI18n: String?): AddNodeParam {
         this.descriptionI18n = descriptionI18n
         return this
     }
 
-    fun withOrder(order: Int): AddNodeParam {
+    fun withOrder(order: Int?): AddNodeParam {
         this.order = order
         return this
     }
 
-    fun withCode(code: String): AddNodeParam {
+    fun withCode(code: String?): AddNodeParam {
         this.code = code
         return this
     }
@@ -3648,14 +3696,14 @@ data class AddPolicyAssignmentsResponse(
 
 class AddPolicyAssignmentsParam @JvmOverloads constructor(
     @SerializedName("policies")
-    var policies: Iterable<String>,
+    var policies: List<String>,
     @SerializedName("targetType")
     var targetType: PolicyAssignmentTargetType,
     @SerializedName("targetIdentifiers")
-    var targetIdentifiers: Iterable<String>? = null
+    var targetIdentifiers: List<String>? = null
 ) {
 
-    fun withTargetIdentifiers(targetIdentifiers: Iterable<String>): AddPolicyAssignmentsParam {
+    fun withTargetIdentifiers(targetIdentifiers: List<String>?): AddPolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
         return this
     }
@@ -3682,55 +3730,6 @@ mutation addPolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: Poli
 }
 
 
-data class AddUdfResponse(
-
-    @SerializedName("addUdf")
-    val result: Iterable<UserDefinedField>
-)
-
-class AddUdfParam @JvmOverloads constructor(
-    @SerializedName("targetType")
-    var targetType: UdfTargetType,
-    @SerializedName("key")
-    var key: String,
-    @SerializedName("dataType")
-    var dataType: UdfDataType,
-    @SerializedName("label")
-    var label: String,
-    @SerializedName("options")
-    var options: String? = null
-) {
-
-    fun withOptions(options: String): AddUdfParam {
-        this.options = options
-        return this
-    }
-
-    fun build(): AddUdfParam {
-        return this
-    }
-
-    fun createRequest(): GraphQLRequest {
-        return GraphQLRequest(
-            addUdfDocument,
-            this
-        );
-    }
-
-    private val addUdfDocument: String = """
-mutation addUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!, ${'$'}dataType: UDFDataType!, ${'$'}label: String!, ${'$'}options: String) {
-  addUdf(targetType: ${'$'}targetType, key: ${'$'}key, dataType: ${'$'}dataType, label: ${'$'}label, options: ${'$'}options) {
-    targetType
-    dataType
-    key
-    label
-    options
-  }
-}
-"""
-}
-
-
 data class AddUserToGroupResponse(
 
     @SerializedName("addUserToGroup")
@@ -3739,12 +3738,12 @@ data class AddUserToGroupResponse(
 
 class AddUserToGroupParam @JvmOverloads constructor(
     @SerializedName("userIds")
-    var userIds: Iterable<String>,
+    var userIds: List<String>,
     @SerializedName("code")
     var code: String? = null
 ) {
 
-    fun withCode(code: String): AddUserToGroupParam {
+    fun withCode(code: String?): AddUserToGroupParam {
         this.code = code
         return this
     }
@@ -3774,14 +3773,14 @@ mutation addUserToGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 data class AddWhitelistResponse(
 
     @SerializedName("addWhitelist")
-    val result: Iterable<WhiteList>
+    val result: List<WhiteList>
 )
 
 class AddWhitelistParam @JvmOverloads constructor(
     @SerializedName("type")
     var type: WhitelistType,
     @SerializedName("list")
-    var list: Iterable<String>
+    var list: List<String>
 ) {
 
 
@@ -3822,29 +3821,29 @@ class AllowParam @JvmOverloads constructor(
     @SerializedName("userId")
     var userId: String? = null,
     @SerializedName("userIds")
-    var userIds: Iterable<String>? = null,
+    var userIds: List<String>? = null,
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
-    var roleCodes: Iterable<String>? = null
+    var roleCodes: List<String>? = null
 ) {
 
-    fun withUserId(userId: String): AllowParam {
+    fun withUserId(userId: String?): AllowParam {
         this.userId = userId
         return this
     }
 
-    fun withUserIds(userIds: Iterable<String>): AllowParam {
+    fun withUserIds(userIds: List<String>?): AllowParam {
         this.userIds = userIds
         return this
     }
 
-    fun withRoleCode(roleCode: String): AllowParam {
+    fun withRoleCode(roleCode: String?): AllowParam {
         this.roleCode = roleCode
         return this
     }
 
-    fun withRoleCodes(roleCodes: Iterable<String>): AllowParam {
+    fun withRoleCodes(roleCodes: List<String>?): AllowParam {
         this.roleCodes = roleCodes
         return this
     }
@@ -3881,36 +3880,36 @@ class AssignRoleParam @JvmOverloads constructor(
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
-    var roleCodes: Iterable<String>? = null,
+    var roleCodes: List<String>? = null,
     @SerializedName("userIds")
-    var userIds: Iterable<String>? = null,
+    var userIds: List<String>? = null,
     @SerializedName("groupCodes")
-    var groupCodes: Iterable<String>? = null,
+    var groupCodes: List<String>? = null,
     @SerializedName("nodeCodes")
-    var nodeCodes: Iterable<String>? = null
+    var nodeCodes: List<String>? = null
 ) {
 
-    fun withRoleCode(roleCode: String): AssignRoleParam {
+    fun withRoleCode(roleCode: String?): AssignRoleParam {
         this.roleCode = roleCode
         return this
     }
 
-    fun withRoleCodes(roleCodes: Iterable<String>): AssignRoleParam {
+    fun withRoleCodes(roleCodes: List<String>?): AssignRoleParam {
         this.roleCodes = roleCodes
         return this
     }
 
-    fun withUserIds(userIds: Iterable<String>): AssignRoleParam {
+    fun withUserIds(userIds: List<String>?): AssignRoleParam {
         this.userIds = userIds
         return this
     }
 
-    fun withGroupCodes(groupCodes: Iterable<String>): AssignRoleParam {
+    fun withGroupCodes(groupCodes: List<String>?): AssignRoleParam {
         this.groupCodes = groupCodes
         return this
     }
 
-    fun withNodeCodes(nodeCodes: Iterable<String>): AssignRoleParam {
+    fun withNodeCodes(nodeCodes: List<String>?): AssignRoleParam {
         this.nodeCodes = nodeCodes
         return this
     }
@@ -4038,27 +4037,27 @@ class ChangeMfaParam @JvmOverloads constructor(
     var refresh: Boolean? = null
 ) {
 
-    fun withEnable(enable: Boolean): ChangeMfaParam {
+    fun withEnable(enable: Boolean?): ChangeMfaParam {
         this.enable = enable
         return this
     }
 
-    fun withId(id: String): ChangeMfaParam {
+    fun withId(id: String?): ChangeMfaParam {
         this.id = id
         return this
     }
 
-    fun withUserId(userId: String): ChangeMfaParam {
+    fun withUserId(userId: String?): ChangeMfaParam {
         this.userId = userId
         return this
     }
 
-    fun withUserPoolId(userPoolId: String): ChangeMfaParam {
+    fun withUserPoolId(userPoolId: String?): ChangeMfaParam {
         this.userPoolId = userPoolId
         return this
     }
 
-    fun withRefresh(refresh: Boolean): ChangeMfaParam {
+    fun withRefresh(refresh: Boolean?): ChangeMfaParam {
         this.refresh = refresh
         return this
     }
@@ -4182,7 +4181,7 @@ class CreateGroupParam @JvmOverloads constructor(
     var description: String? = null
 ) {
 
-    fun withDescription(description: String): CreateGroupParam {
+    fun withDescription(description: String?): CreateGroupParam {
         this.description = description
         return this
     }
@@ -4227,12 +4226,12 @@ class CreateOrgParam @JvmOverloads constructor(
     var description: String? = null
 ) {
 
-    fun withCode(code: String): CreateOrgParam {
+    fun withCode(code: String?): CreateOrgParam {
         this.code = code
         return this
     }
 
-    fun withDescription(description: String): CreateOrgParam {
+    fun withDescription(description: String?): CreateOrgParam {
         this.description = description
         return this
     }
@@ -4300,10 +4299,10 @@ class CreatePolicyParam @JvmOverloads constructor(
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("statements")
-    var statements: Iterable<PolicyStatementInput>
+    var statements: List<PolicyStatementInput>
 ) {
 
-    fun withDescription(description: String): CreatePolicyParam {
+    fun withDescription(description: String?): CreatePolicyParam {
         this.description = description
         return this
     }
@@ -4354,12 +4353,12 @@ class CreateRoleParam @JvmOverloads constructor(
     var parent: String? = null
 ) {
 
-    fun withDescription(description: String): CreateRoleParam {
+    fun withDescription(description: String?): CreateRoleParam {
         this.description = description
         return this
     }
 
-    fun withParent(parent: String): CreateRoleParam {
+    fun withParent(parent: String?): CreateRoleParam {
         this.parent = parent
         return this
     }
@@ -4491,7 +4490,7 @@ class CreateUserParam @JvmOverloads constructor(
     var keepPassword: Boolean? = null
 ) {
 
-    fun withKeepPassword(keepPassword: Boolean): CreateUserParam {
+    fun withKeepPassword(keepPassword: Boolean?): CreateUserParam {
         this.keepPassword = keepPassword
         return this
     }
@@ -4580,20 +4579,20 @@ class CreateUserpoolParam @JvmOverloads constructor(
     @SerializedName("logo")
     var logo: String? = null,
     @SerializedName("userpoolTypes")
-    var userpoolTypes: Iterable<String>? = null
+    var userpoolTypes: List<String>? = null
 ) {
 
-    fun withDescription(description: String): CreateUserpoolParam {
+    fun withDescription(description: String?): CreateUserpoolParam {
         this.description = description
         return this
     }
 
-    fun withLogo(logo: String): CreateUserpoolParam {
+    fun withLogo(logo: String?): CreateUserpoolParam {
         this.logo = logo
         return this
     }
 
-    fun withUserpoolTypes(userpoolTypes: Iterable<String>): CreateUserpoolParam {
+    fun withUserpoolTypes(userpoolTypes: List<String>?): CreateUserpoolParam {
         this.userpoolTypes = userpoolTypes
         return this
     }
@@ -4718,7 +4717,7 @@ data class DeleteGroupsResponse(
 
 class DeleteGroupsParam @JvmOverloads constructor(
     @SerializedName("codeList")
-    var codeList: Iterable<String>
+    var codeList: List<String>
 ) {
 
 
@@ -4821,8 +4820,8 @@ data class DeletePoliciesResponse(
 )
 
 class DeletePoliciesParam @JvmOverloads constructor(
-    @SerializedName("codes")
-    var codes: Iterable<String>
+    @SerializedName("codeList")
+    var codeList: List<String>
 ) {
 
 
@@ -4838,8 +4837,8 @@ class DeletePoliciesParam @JvmOverloads constructor(
     }
 
     private val deletePoliciesDocument: String = """
-mutation deletePolicies(${'$'}codes: [String!]!) {
-  deletePolicies(codes: ${'$'}codes) {
+mutation deletePolicies(${'$'}codeList: [String!]!) {
+  deletePolicies(codeList: ${'$'}codeList) {
     message
     code
   }
@@ -4919,12 +4918,12 @@ mutation deleteRole(${'$'}code: String!) {
 data class DeleteRolesResponse(
 
     @SerializedName("deleteRoles")
-    val result: BatchOperationResult
+    val result: CommonMessage
 )
 
 class DeleteRolesParam @JvmOverloads constructor(
-    @SerializedName("codes")
-    var codes: Iterable<String>
+    @SerializedName("codeList")
+    var codeList: List<String>
 ) {
 
 
@@ -4940,12 +4939,10 @@ class DeleteRolesParam @JvmOverloads constructor(
     }
 
     private val deleteRolesDocument: String = """
-mutation deleteRoles(${'$'}codes: [String!]!) {
-  deleteRoles(codes: ${'$'}codes) {
-    succeedCount
-    failedCount
+mutation deleteRoles(${'$'}codeList: [String!]!) {
+  deleteRoles(codeList: ${'$'}codeList) {
     message
-    errors
+    code
   }
 }
 """
@@ -5025,7 +5022,7 @@ data class DeleteUsersResponse(
 
 class DeleteUsersParam @JvmOverloads constructor(
     @SerializedName("ids")
-    var ids: Iterable<String>
+    var ids: List<String>
 ) {
 
 
@@ -5609,7 +5606,7 @@ class RefreshAccessTokenParam @JvmOverloads constructor(
     var accessToken: String? = null
 ) {
 
-    fun withAccessToken(accessToken: String): RefreshAccessTokenParam {
+    fun withAccessToken(accessToken: String?): RefreshAccessTokenParam {
         this.accessToken = accessToken
         return this
     }
@@ -5648,7 +5645,7 @@ class RefreshTokenParam @JvmOverloads constructor(
     var id: String? = null
 ) {
 
-    fun withId(id: String): RefreshTokenParam {
+    fun withId(id: String?): RefreshTokenParam {
         this.id = id
         return this
     }
@@ -5966,40 +5963,40 @@ class RemoveMemberParam @JvmOverloads constructor(
     @SerializedName("nodeCode")
     var nodeCode: String? = null,
     @SerializedName("userIds")
-    var userIds: Iterable<String>
+    var userIds: List<String>
 ) {
 
-    fun withPage(page: Int): RemoveMemberParam {
+    fun withPage(page: Int?): RemoveMemberParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): RemoveMemberParam {
+    fun withLimit(limit: Int?): RemoveMemberParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): RemoveMemberParam {
+    fun withSortBy(sortBy: SortByEnum?): RemoveMemberParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): RemoveMemberParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): RemoveMemberParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
 
-    fun withNodeId(nodeId: String): RemoveMemberParam {
+    fun withNodeId(nodeId: String?): RemoveMemberParam {
         this.nodeId = nodeId
         return this
     }
 
-    fun withOrgId(orgId: String): RemoveMemberParam {
+    fun withOrgId(orgId: String?): RemoveMemberParam {
         this.orgId = orgId
         return this
     }
 
-    fun withNodeCode(nodeCode: String): RemoveMemberParam {
+    fun withNodeCode(nodeCode: String?): RemoveMemberParam {
         this.nodeCode = nodeCode
         return this
     }
@@ -6097,14 +6094,14 @@ data class RemovePolicyAssignmentsResponse(
 
 class RemovePolicyAssignmentsParam @JvmOverloads constructor(
     @SerializedName("policies")
-    var policies: Iterable<String>,
+    var policies: List<String>,
     @SerializedName("targetType")
     var targetType: PolicyAssignmentTargetType,
     @SerializedName("targetIdentifiers")
-    var targetIdentifiers: Iterable<String>? = null
+    var targetIdentifiers: List<String>? = null
 ) {
 
-    fun withTargetIdentifiers(targetIdentifiers: Iterable<String>): RemovePolicyAssignmentsParam {
+    fun withTargetIdentifiers(targetIdentifiers: List<String>?): RemovePolicyAssignmentsParam {
         this.targetIdentifiers = targetIdentifiers
         return this
     }
@@ -6134,7 +6131,7 @@ mutation removePolicyAssignments(${'$'}policies: [String!]!, ${'$'}targetType: P
 data class RemoveUdfResponse(
 
     @SerializedName("removeUdf")
-    val result: Iterable<UserDefinedField>
+    val result: CommonMessage
 )
 
 class RemoveUdfParam @JvmOverloads constructor(
@@ -6159,11 +6156,8 @@ class RemoveUdfParam @JvmOverloads constructor(
     private val removeUdfDocument: String = """
 mutation removeUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!) {
   removeUdf(targetType: ${'$'}targetType, key: ${'$'}key) {
-    targetType
-    dataType
-    key
-    label
-    options
+    message
+    code
   }
 }
 """
@@ -6173,7 +6167,7 @@ mutation removeUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!) {
 data class RemoveUdvResponse(
 
     @SerializedName("removeUdv")
-    val result: Iterable<UserDefinedData>
+    val result: List<UserDefinedData>
 )
 
 class RemoveUdvParam @JvmOverloads constructor(
@@ -6217,12 +6211,12 @@ data class RemoveUserFromGroupResponse(
 
 class RemoveUserFromGroupParam @JvmOverloads constructor(
     @SerializedName("userIds")
-    var userIds: Iterable<String>,
+    var userIds: List<String>,
     @SerializedName("code")
     var code: String? = null
 ) {
 
-    fun withCode(code: String): RemoveUserFromGroupParam {
+    fun withCode(code: String?): RemoveUserFromGroupParam {
         this.code = code
         return this
     }
@@ -6252,14 +6246,14 @@ mutation removeUserFromGroup(${'$'}userIds: [String!]!, ${'$'}code: String) {
 data class RemoveWhitelistResponse(
 
     @SerializedName("removeWhitelist")
-    val result: Iterable<WhiteList>
+    val result: List<WhiteList>
 )
 
 class RemoveWhitelistParam @JvmOverloads constructor(
     @SerializedName("type")
     var type: WhitelistType,
     @SerializedName("list")
-    var list: Iterable<String>
+    var list: List<String>
 ) {
 
 
@@ -6303,12 +6297,12 @@ class ResetPasswordParam @JvmOverloads constructor(
     var newPassword: String
 ) {
 
-    fun withPhone(phone: String): ResetPasswordParam {
+    fun withPhone(phone: String?): ResetPasswordParam {
         this.phone = phone
         return this
     }
 
-    fun withEmail(email: String): ResetPasswordParam {
+    fun withEmail(email: String?): ResetPasswordParam {
         this.email = email
         return this
     }
@@ -6345,36 +6339,36 @@ class RevokeRoleParam @JvmOverloads constructor(
     @SerializedName("roleCode")
     var roleCode: String? = null,
     @SerializedName("roleCodes")
-    var roleCodes: Iterable<String>? = null,
+    var roleCodes: List<String>? = null,
     @SerializedName("userIds")
-    var userIds: Iterable<String>? = null,
+    var userIds: List<String>? = null,
     @SerializedName("groupCodes")
-    var groupCodes: Iterable<String>? = null,
+    var groupCodes: List<String>? = null,
     @SerializedName("nodeCodes")
-    var nodeCodes: Iterable<String>? = null
+    var nodeCodes: List<String>? = null
 ) {
 
-    fun withRoleCode(roleCode: String): RevokeRoleParam {
+    fun withRoleCode(roleCode: String?): RevokeRoleParam {
         this.roleCode = roleCode
         return this
     }
 
-    fun withRoleCodes(roleCodes: Iterable<String>): RevokeRoleParam {
+    fun withRoleCodes(roleCodes: List<String>?): RevokeRoleParam {
         this.roleCodes = roleCodes
         return this
     }
 
-    fun withUserIds(userIds: Iterable<String>): RevokeRoleParam {
+    fun withUserIds(userIds: List<String>?): RevokeRoleParam {
         this.userIds = userIds
         return this
     }
 
-    fun withGroupCodes(groupCodes: Iterable<String>): RevokeRoleParam {
+    fun withGroupCodes(groupCodes: List<String>?): RevokeRoleParam {
         this.groupCodes = groupCodes
         return this
     }
 
-    fun withNodeCodes(nodeCodes: Iterable<String>): RevokeRoleParam {
+    fun withNodeCodes(nodeCodes: List<String>?): RevokeRoleParam {
         this.nodeCodes = nodeCodes
         return this
     }
@@ -6437,10 +6431,59 @@ mutation sendEmail(${'$'}email: String!, ${'$'}scene: EmailScene!) {
 }
 
 
+data class SetUdfResponse(
+
+    @SerializedName("setUdf")
+    val result: UserDefinedField
+)
+
+class SetUdfParam @JvmOverloads constructor(
+    @SerializedName("targetType")
+    var targetType: UdfTargetType,
+    @SerializedName("key")
+    var key: String,
+    @SerializedName("dataType")
+    var dataType: UdfDataType,
+    @SerializedName("label")
+    var label: String,
+    @SerializedName("options")
+    var options: String? = null
+) {
+
+    fun withOptions(options: String?): SetUdfParam {
+        this.options = options
+        return this
+    }
+
+    fun build(): SetUdfParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            setUdfDocument,
+            this
+        );
+    }
+
+    private val setUdfDocument: String = """
+mutation setUdf(${'$'}targetType: UDFTargetType!, ${'$'}key: String!, ${'$'}dataType: UDFDataType!, ${'$'}label: String!, ${'$'}options: String) {
+  setUdf(targetType: ${'$'}targetType, key: ${'$'}key, dataType: ${'$'}dataType, label: ${'$'}label, options: ${'$'}options) {
+    targetType
+    dataType
+    key
+    label
+    options
+  }
+}
+"""
+}
+
+
 data class SetUdvResponse(
 
     @SerializedName("setUdv")
-    val result: Iterable<UserDefinedData>
+    val result: List<UserDefinedData>
 )
 
 class SetUdvParam @JvmOverloads constructor(
@@ -6649,12 +6692,12 @@ class UpdateEmailParam @JvmOverloads constructor(
     var oldEmailCode: String? = null
 ) {
 
-    fun withOldEmail(oldEmail: String): UpdateEmailParam {
+    fun withOldEmail(oldEmail: String?): UpdateEmailParam {
         this.oldEmail = oldEmail
         return this
     }
 
-    fun withOldEmailCode(oldEmailCode: String): UpdateEmailParam {
+    fun withOldEmailCode(oldEmailCode: String?): UpdateEmailParam {
         this.oldEmailCode = oldEmailCode
         return this
     }
@@ -6781,17 +6824,17 @@ class UpdateGroupParam @JvmOverloads constructor(
     var newCode: String? = null
 ) {
 
-    fun withName(name: String): UpdateGroupParam {
+    fun withName(name: String?): UpdateGroupParam {
         this.name = name
         return this
     }
 
-    fun withDescription(description: String): UpdateGroupParam {
+    fun withDescription(description: String?): UpdateGroupParam {
         this.description = description
         return this
     }
 
-    fun withNewCode(newCode: String): UpdateGroupParam {
+    fun withNewCode(newCode: String?): UpdateGroupParam {
         this.newCode = newCode
         return this
     }
@@ -6846,37 +6889,37 @@ class UpdateNodeParam @JvmOverloads constructor(
     var description: String? = null
 ) {
 
-    fun withPage(page: Int): UpdateNodeParam {
+    fun withPage(page: Int?): UpdateNodeParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): UpdateNodeParam {
+    fun withLimit(limit: Int?): UpdateNodeParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): UpdateNodeParam {
+    fun withSortBy(sortBy: SortByEnum?): UpdateNodeParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): UpdateNodeParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): UpdateNodeParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
 
-    fun withName(name: String): UpdateNodeParam {
+    fun withName(name: String?): UpdateNodeParam {
         this.name = name
         return this
     }
 
-    fun withCode(code: String): UpdateNodeParam {
+    fun withCode(code: String?): UpdateNodeParam {
         this.code = code
         return this
     }
 
-    fun withDescription(description: String): UpdateNodeParam {
+    fun withDescription(description: String?): UpdateNodeParam {
         this.description = description
         return this
     }
@@ -6930,7 +6973,7 @@ class UpdatePasswordParam @JvmOverloads constructor(
     var oldPassword: String? = null
 ) {
 
-    fun withOldPassword(oldPassword: String): UpdatePasswordParam {
+    fun withOldPassword(oldPassword: String?): UpdatePasswordParam {
         this.oldPassword = oldPassword
         return this
     }
@@ -7020,12 +7063,12 @@ class UpdatePhoneParam @JvmOverloads constructor(
     var oldPhoneCode: String? = null
 ) {
 
-    fun withOldPhone(oldPhone: String): UpdatePhoneParam {
+    fun withOldPhone(oldPhone: String?): UpdatePhoneParam {
         this.oldPhone = oldPhone
         return this
     }
 
-    fun withOldPhoneCode(oldPhoneCode: String): UpdatePhoneParam {
+    fun withOldPhoneCode(oldPhoneCode: String?): UpdatePhoneParam {
         this.oldPhoneCode = oldPhoneCode
         return this
     }
@@ -7110,22 +7153,22 @@ class UpdatePolicyParam @JvmOverloads constructor(
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("statements")
-    var statements: Iterable<PolicyStatementInput>? = null,
+    var statements: List<PolicyStatementInput>? = null,
     @SerializedName("newCode")
     var newCode: String? = null
 ) {
 
-    fun withDescription(description: String): UpdatePolicyParam {
+    fun withDescription(description: String?): UpdatePolicyParam {
         this.description = description
         return this
     }
 
-    fun withStatements(statements: Iterable<PolicyStatementInput>): UpdatePolicyParam {
+    fun withStatements(statements: List<PolicyStatementInput>?): UpdatePolicyParam {
         this.statements = statements
         return this
     }
 
-    fun withNewCode(newCode: String): UpdatePolicyParam {
+    fun withNewCode(newCode: String?): UpdatePolicyParam {
         this.newCode = newCode
         return this
     }
@@ -7176,12 +7219,12 @@ class UpdateRoleParam @JvmOverloads constructor(
     var newCode: String? = null
 ) {
 
-    fun withDescription(description: String): UpdateRoleParam {
+    fun withDescription(description: String?): UpdateRoleParam {
         this.description = description
         return this
     }
 
-    fun withNewCode(newCode: String): UpdateRoleParam {
+    fun withNewCode(newCode: String?): UpdateRoleParam {
         this.newCode = newCode
         return this
     }
@@ -7236,7 +7279,7 @@ class UpdateUserParam @JvmOverloads constructor(
     var input: UpdateUserInput
 ) {
 
-    fun withId(id: String): UpdateUserParam {
+    fun withId(id: String?): UpdateUserParam {
         this.id = id
         return this
     }
@@ -7447,7 +7490,7 @@ class CheckLoginStatusParam @JvmOverloads constructor(
     var token: String? = null
 ) {
 
-    fun withToken(token: String): CheckLoginStatusParam {
+    fun withToken(token: String?): CheckLoginStatusParam {
         this.token = token
         return this
     }
@@ -7519,7 +7562,7 @@ query checkPasswordStrength(${'$'}password: String!) {
 data class ChildrenNodesResponse(
 
     @SerializedName("childrenNodes")
-    val result: Iterable<Node>
+    val result: List<Node>
 )
 
 class ChildrenNodesParam @JvmOverloads constructor(
@@ -7566,7 +7609,7 @@ query childrenNodes(${'$'}orgId: String!, ${'$'}nodeId: String!) {
 data class EmailTemplatesResponse(
 
     @SerializedName("emailTemplates")
-    val result: Iterable<EmailTemplate>
+    val result: List<EmailTemplate>
 )
 
 class EmailTemplatesParam {
@@ -7602,6 +7645,104 @@ query emailTemplates {
 }
 
 
+data class FindUserResponse(
+
+    @SerializedName("findUser")
+    val result: User
+)
+
+class FindUserParam @JvmOverloads constructor(
+    @SerializedName("email")
+    var email: String? = null,
+    @SerializedName("phone")
+    var phone: String? = null,
+    @SerializedName("username")
+    var username: String? = null
+) {
+
+    fun withEmail(email: String?): FindUserParam {
+        this.email = email
+        return this
+    }
+
+    fun withPhone(phone: String?): FindUserParam {
+        this.phone = phone
+        return this
+    }
+
+    fun withUsername(username: String?): FindUserParam {
+        this.username = username
+        return this
+    }
+
+    fun build(): FindUserParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            findUserDocument,
+            this
+        );
+    }
+
+    private val findUserDocument: String = """
+query findUser(${'$'}email: String, ${'$'}phone: String, ${'$'}username: String) {
+  findUser(email: ${'$'}email, phone: ${'$'}phone, username: ${'$'}username) {
+    id
+    arn
+    userPoolId
+    username
+    email
+    emailVerified
+    phone
+    phoneVerified
+    unionid
+    openid
+    nickname
+    registerSource
+    photo
+    password
+    oauth
+    token
+    tokenExpiredAt
+    loginsCount
+    lastLogin
+    lastIP
+    signedUp
+    blocked
+    isDeleted
+    device
+    browser
+    company
+    name
+    givenName
+    familyName
+    middleName
+    profile
+    preferredUsername
+    website
+    gender
+    birthdate
+    zoneinfo
+    locale
+    address
+    formatted
+    streetAddress
+    locality
+    region
+    postalCode
+    city
+    province
+    country
+    createdAt
+    updatedAt
+  }
+}
+"""
+}
+
+
 data class FunctionResponse(
 
     @SerializedName("function")
@@ -7613,7 +7754,7 @@ class FunctionParam @JvmOverloads constructor(
     var id: String? = null
 ) {
 
-    fun withId(id: String): FunctionParam {
+    fun withId(id: String?): FunctionParam {
         this.id = id
         return this
     }
@@ -7658,17 +7799,17 @@ class FunctionsParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withPage(page: Int): FunctionsParam {
+    fun withPage(page: Int?): FunctionsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): FunctionsParam {
+    fun withLimit(limit: Int?): FunctionsParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): FunctionsParam {
+    fun withSortBy(sortBy: SortByEnum?): FunctionsParam {
         this.sortBy = sortBy
         return this
     }
@@ -7695,6 +7836,48 @@ query functions(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
       url
     }
     totalCount
+  }
+}
+"""
+}
+
+
+data class GetUserGroupsResponse(
+
+    @SerializedName("user")
+    val result: User
+)
+
+class GetUserGroupsParam @JvmOverloads constructor(
+    @SerializedName("id")
+    var id: String
+) {
+
+
+    fun build(): GetUserGroupsParam {
+        return this
+    }
+
+    fun createRequest(): GraphQLRequest {
+        return GraphQLRequest(
+            getUserGroupsDocument,
+            this
+        );
+    }
+
+    private val getUserGroupsDocument: String = """
+query getUserGroups(${'$'}id: String!) {
+  user(id: ${'$'}id) {
+    groups {
+      totalCount
+      list {
+        code
+        name
+        description
+        createdAt
+        updatedAt
+      }
+    }
   }
 }
 """
@@ -7803,12 +7986,12 @@ class GroupWithUsersParam @JvmOverloads constructor(
     var limit: Int? = null
 ) {
 
-    fun withPage(page: Int): GroupWithUsersParam {
+    fun withPage(page: Int?): GroupWithUsersParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): GroupWithUsersParam {
+    fun withLimit(limit: Int?): GroupWithUsersParam {
         this.limit = limit
         return this
     }
@@ -7903,22 +8086,22 @@ class GroupsParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withUserId(userId: String): GroupsParam {
+    fun withUserId(userId: String?): GroupsParam {
         this.userId = userId
         return this
     }
 
-    fun withPage(page: Int): GroupsParam {
+    fun withPage(page: Int?): GroupsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): GroupsParam {
+    fun withLimit(limit: Int?): GroupsParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): GroupsParam {
+    fun withSortBy(sortBy: SortByEnum?): GroupsParam {
         this.sortBy = sortBy
         return this
     }
@@ -8100,17 +8283,17 @@ class IsUserExistsParam @JvmOverloads constructor(
     var username: String? = null
 ) {
 
-    fun withEmail(email: String): IsUserExistsParam {
+    fun withEmail(email: String?): IsUserExistsParam {
         this.email = email
         return this
     }
 
-    fun withPhone(phone: String): IsUserExistsParam {
+    fun withPhone(phone: String?): IsUserExistsParam {
         this.phone = phone
         return this
     }
 
-    fun withUsername(username: String): IsUserExistsParam {
+    fun withUsername(username: String?): IsUserExistsParam {
         this.username = username
         return this
     }
@@ -8202,22 +8385,22 @@ class NodeByCodeWithMembersParam @JvmOverloads constructor(
     var code: String
 ) {
 
-    fun withPage(page: Int): NodeByCodeWithMembersParam {
+    fun withPage(page: Int?): NodeByCodeWithMembersParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): NodeByCodeWithMembersParam {
+    fun withLimit(limit: Int?): NodeByCodeWithMembersParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): NodeByCodeWithMembersParam {
+    fun withSortBy(sortBy: SortByEnum?): NodeByCodeWithMembersParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): NodeByCodeWithMembersParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): NodeByCodeWithMembersParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
@@ -8371,22 +8554,22 @@ class NodeByIdWithMembersParam @JvmOverloads constructor(
     var id: String
 ) {
 
-    fun withPage(page: Int): NodeByIdWithMembersParam {
+    fun withPage(page: Int?): NodeByIdWithMembersParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): NodeByIdWithMembersParam {
+    fun withLimit(limit: Int?): NodeByIdWithMembersParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): NodeByIdWithMembersParam {
+    fun withSortBy(sortBy: SortByEnum?): NodeByIdWithMembersParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): NodeByIdWithMembersParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): NodeByIdWithMembersParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
@@ -8554,17 +8737,17 @@ class OrgsParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withPage(page: Int): OrgsParam {
+    fun withPage(page: Int?): OrgsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): OrgsParam {
+    fun withLimit(limit: Int?): OrgsParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): OrgsParam {
+    fun withSortBy(sortBy: SortByEnum?): OrgsParam {
         this.sortBy = sortBy
         return this
     }
@@ -8638,17 +8821,17 @@ class PoliciesParam @JvmOverloads constructor(
     var excludeDefault: Boolean? = null
 ) {
 
-    fun withPage(page: Int): PoliciesParam {
+    fun withPage(page: Int?): PoliciesParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): PoliciesParam {
+    fun withLimit(limit: Int?): PoliciesParam {
         this.limit = limit
         return this
     }
 
-    fun withExcludeDefault(excludeDefault: Boolean): PoliciesParam {
+    fun withExcludeDefault(excludeDefault: Boolean?): PoliciesParam {
         this.excludeDefault = excludeDefault
         return this
     }
@@ -8733,7 +8916,7 @@ query policy(${'$'}code: String!) {
 data class PolicyAssignmentsResponse(
 
     @SerializedName("policyAssignments")
-    val result: PaginatedPolicyAssignment
+    val result: PaginatedPolicyAssignments
 )
 
 class PolicyAssignmentsParam @JvmOverloads constructor(
@@ -8749,27 +8932,27 @@ class PolicyAssignmentsParam @JvmOverloads constructor(
     var limit: Int? = null
 ) {
 
-    fun withCode(code: String): PolicyAssignmentsParam {
+    fun withCode(code: String?): PolicyAssignmentsParam {
         this.code = code
         return this
     }
 
-    fun withTargetType(targetType: PolicyAssignmentTargetType): PolicyAssignmentsParam {
+    fun withTargetType(targetType: PolicyAssignmentTargetType?): PolicyAssignmentsParam {
         this.targetType = targetType
         return this
     }
 
-    fun withTargetIdentifier(targetIdentifier: String): PolicyAssignmentsParam {
+    fun withTargetIdentifier(targetIdentifier: String?): PolicyAssignmentsParam {
         this.targetIdentifier = targetIdentifier
         return this
     }
 
-    fun withPage(page: Int): PolicyAssignmentsParam {
+    fun withPage(page: Int?): PolicyAssignmentsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): PolicyAssignmentsParam {
+    fun withLimit(limit: Int?): PolicyAssignmentsParam {
         this.limit = limit
         return this
     }
@@ -8815,12 +8998,12 @@ class PolicyWithAssignmentsParam @JvmOverloads constructor(
     var code: String
 ) {
 
-    fun withPage(page: Int): PolicyWithAssignmentsParam {
+    fun withPage(page: Int?): PolicyWithAssignmentsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): PolicyWithAssignmentsParam {
+    fun withLimit(limit: Int?): PolicyWithAssignmentsParam {
         this.limit = limit
         return this
     }
@@ -8903,7 +9086,7 @@ class QiniuUptokenParam @JvmOverloads constructor(
     var type: String? = null
 ) {
 
-    fun withType(type: String): QiniuUptokenParam {
+    fun withType(type: String?): QiniuUptokenParam {
         this.type = type
         return this
     }
@@ -8942,17 +9125,17 @@ class QueryMfaParam @JvmOverloads constructor(
     var userPoolId: String? = null
 ) {
 
-    fun withId(id: String): QueryMfaParam {
+    fun withId(id: String?): QueryMfaParam {
         this.id = id
         return this
     }
 
-    fun withUserId(userId: String): QueryMfaParam {
+    fun withUserId(userId: String?): QueryMfaParam {
         this.userId = userId
         return this
     }
 
-    fun withUserPoolId(userPoolId: String): QueryMfaParam {
+    fun withUserPoolId(userPoolId: String?): QueryMfaParam {
         this.userPoolId = userPoolId
         return this
     }
@@ -9131,17 +9314,17 @@ class RolesParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withPage(page: Int): RolesParam {
+    fun withPage(page: Int?): RolesParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): RolesParam {
+    fun withLimit(limit: Int?): RolesParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): RolesParam {
+    fun withSortBy(sortBy: SortByEnum?): RolesParam {
         this.sortBy = sortBy
         return this
     }
@@ -9201,22 +9384,22 @@ class RootNodeParam @JvmOverloads constructor(
     var orgId: String
 ) {
 
-    fun withPage(page: Int): RootNodeParam {
+    fun withPage(page: Int?): RootNodeParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): RootNodeParam {
+    fun withLimit(limit: Int?): RootNodeParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): RootNodeParam {
+    fun withSortBy(sortBy: SortByEnum?): RootNodeParam {
         this.sortBy = sortBy
         return this
     }
 
-    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean): RootNodeParam {
+    fun withIncludeChildrenNodes(includeChildrenNodes: Boolean?): RootNodeParam {
         this.includeChildrenNodes = includeChildrenNodes
         return this
     }
@@ -9267,24 +9450,24 @@ class SearchUserParam @JvmOverloads constructor(
     @SerializedName("query")
     var query: String,
     @SerializedName("fields")
-    var fields: Iterable<String>? = null,
+    var fields: List<String>? = null,
     @SerializedName("page")
     var page: Int? = null,
     @SerializedName("limit")
     var limit: Int? = null
 ) {
 
-    fun withFields(fields: Iterable<String>): SearchUserParam {
+    fun withFields(fields: List<String>?): SearchUserParam {
         this.fields = fields
         return this
     }
 
-    fun withPage(page: Int): SearchUserParam {
+    fun withPage(page: Int?): SearchUserParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): SearchUserParam {
+    fun withLimit(limit: Int?): SearchUserParam {
         this.limit = limit
         return this
     }
@@ -9443,7 +9626,7 @@ query socialConnectionInstance(${'$'}provider: String!) {
 data class SocialConnectionInstancesResponse(
 
     @SerializedName("socialConnectionInstances")
-    val result: Iterable<SocialConnectionInstance>
+    val result: List<SocialConnectionInstance>
 )
 
 class SocialConnectionInstancesParam {
@@ -9478,7 +9661,7 @@ query socialConnectionInstances {
 data class SocialConnectionsResponse(
 
     @SerializedName("socialConnections")
-    val result: Iterable<SocialConnection>
+    val result: List<SocialConnection>
 )
 
 class SocialConnectionsParam {
@@ -9545,7 +9728,7 @@ query templateCode {
 data class UdfResponse(
 
     @SerializedName("udf")
-    val result: Iterable<UserDefinedField>
+    val result: List<UserDefinedField>
 )
 
 class UdfParam @JvmOverloads constructor(
@@ -9582,7 +9765,7 @@ query udf(${'$'}targetType: UDFTargetType!) {
 data class UdvResponse(
 
     @SerializedName("udv")
-    val result: Iterable<UserDefinedData>
+    val result: List<UserDefinedData>
 )
 
 class UdvParam @JvmOverloads constructor(
@@ -9627,7 +9810,7 @@ class UserParam @JvmOverloads constructor(
     var id: String? = null
 ) {
 
-    fun withId(id: String): UserParam {
+    fun withId(id: String?): UserParam {
         this.id = id
         return this
     }
@@ -9703,12 +9886,12 @@ query user(${'$'}id: String) {
 data class UserBatchResponse(
 
     @SerializedName("userBatch")
-    val result: Iterable<User>
+    val result: List<User>
 )
 
 class UserBatchParam @JvmOverloads constructor(
     @SerializedName("ids")
-    var ids: Iterable<String>
+    var ids: List<String>
 ) {
 
 
@@ -9870,7 +10053,7 @@ query userpool {
 data class UserpoolTypesResponse(
 
     @SerializedName("userpoolTypes")
-    val result: Iterable<UserPoolType>
+    val result: List<UserPoolType>
 )
 
 class UserpoolTypesParam {
@@ -9916,17 +10099,17 @@ class UserpoolsParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withPage(page: Int): UserpoolsParam {
+    fun withPage(page: Int?): UserpoolsParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): UserpoolsParam {
+    fun withLimit(limit: Int?): UserpoolsParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): UserpoolsParam {
+    fun withSortBy(sortBy: SortByEnum?): UserpoolsParam {
         this.sortBy = sortBy
         return this
     }
@@ -9985,17 +10168,17 @@ class UsersParam @JvmOverloads constructor(
     var sortBy: SortByEnum? = null
 ) {
 
-    fun withPage(page: Int): UsersParam {
+    fun withPage(page: Int?): UsersParam {
         this.page = page
         return this
     }
 
-    fun withLimit(limit: Int): UsersParam {
+    fun withLimit(limit: Int?): UsersParam {
         this.limit = limit
         return this
     }
 
-    fun withSortBy(sortBy: SortByEnum): UsersParam {
+    fun withSortBy(sortBy: SortByEnum?): UsersParam {
         this.sortBy = sortBy
         return this
     }
@@ -10074,7 +10257,7 @@ query users(${'$'}page: Int, ${'$'}limit: Int, ${'$'}sortBy: SortByEnum) {
 data class WhitelistResponse(
 
     @SerializedName("whitelist")
-    val result: Iterable<WhiteList>
+    val result: List<WhiteList>
 )
 
 class WhitelistParam @JvmOverloads constructor(

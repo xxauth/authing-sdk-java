@@ -3,12 +3,12 @@ package com.xauth.core
 import com.xauth.core.graphql.GraphQLCall
 import com.xauth.core.graphql.GraphQLRequest
 import com.xauth.core.graphql.GraphQLResponse
-import com.xauth.core.http.Call
 import com.xauth.core.http.HttpCall
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import okhttp3.*
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.security.KeyFactory
@@ -20,7 +20,7 @@ import javax.crypto.Cipher
 /**
  * Authing 客户端类
  */
-abstract class BaseClient(private val userPoolId: String) {
+abstract class BaseClient(internal val userPoolId: String) {
     // 可选参数
     var host: String = "https://core.xauth.lucfish.com"
     var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +
@@ -38,7 +38,7 @@ abstract class BaseClient(private val userPoolId: String) {
     // 常量
     private val mediaTypeJson: MediaType? = "application/json".toMediaTypeOrNull()
     private val sdkType: String = "SDK"
-    private val sdkVersion: String = "java:2.0.5"
+    private val sdkVersion: String = "java:3.0.1"
 
     // graphql 端点
     private val endpoint: String
@@ -52,7 +52,11 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 密码加密方法
      */
-    protected open fun encrypt(msg: String): String {
+    internal open fun encrypt(msg: String?): String {
+        if (msg === null) {
+            return ""
+        }
+
         // get publicKey
         val keyBytes: ByteArray = Base64.getDecoder().decode(publicKey)
         val keySpec = X509EncodedKeySpec(keyBytes)
@@ -68,10 +72,11 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 创建 GraphQL 请求
      */
-    protected open fun <TResponse> createGraphQLCall(
+    internal open fun <TData, TResult> createGraphQLCall(
         request: GraphQLRequest,
-        typeToken: TypeToken<GraphQLResponse<TResponse>>
-    ): Call<TResponse> {
+        typeToken: TypeToken<GraphQLResponse<TData>>,
+        resolver: (data: TData) -> TResult
+    ): GraphQLCall<TData, TResult> {
         val adapter = json.getAdapter(typeToken)
         return GraphQLCall(
             client.newCall(
@@ -84,14 +89,14 @@ abstract class BaseClient(private val userPoolId: String) {
                     .addHeader("x-authing-sdk-version", sdkVersion)
                     .post(json.toJson(request).toRequestBody(mediaTypeJson))
                     .build()
-            ), adapter
+            ), adapter, resolver
         )
     }
 
     /**
      * 创建 HTTP GET 请求
      */
-    protected open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): Call<TResponse> {
+    internal open fun <TResponse> createHttpGetCall(url: String, typeToken: TypeToken<TResponse>): HttpCall<TResponse> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
@@ -111,11 +116,11 @@ abstract class BaseClient(private val userPoolId: String) {
     /**
      * 创建 HTTP POST 请求
      */
-    protected open fun <TResponse> createHttpPostCall(
+    internal open fun <TResponse> createHttpPostCall(
         url: String,
         body: String,
         typeToken: TypeToken<TResponse>
-    ): Call<TResponse> {
+    ): HttpCall<TResponse> {
         val adapter = json.getAdapter(typeToken)
         return HttpCall(
             client.newCall(
