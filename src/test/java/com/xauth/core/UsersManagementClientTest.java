@@ -1,5 +1,6 @@
 package com.xauth.core;
 
+import com.xauth.core.auth.AuthenticationClient;
 import com.xauth.core.graphql.GraphQLException;
 import com.xauth.core.mgmt.ManagementClient;
 import com.xauth.core.mgmt.UsersManagementClient;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 public class UsersManagementClientTest {
     private ManagementClient managementClient;
+    private AuthenticationClient authenticationClient;
     private UsersManagementClient usersManagementClient;
 
     private String email;
@@ -29,12 +31,14 @@ public class UsersManagementClientTest {
 
     @Before
     public void before() throws IOException, GraphQLException {
-        managementClient = new ManagementClient("7f74f487bc121542ad0c7e3d", "cb6254521050caf857855214bc9dba98");
+        managementClient = new ManagementClient("7f74f487bc121542ad0c7e3d", "lpRzBN37G6ANWnRAz02yexQGz05wkOrr");
         managementClient.setHost("https://core.xauth.lucfish.com");
-        usersManagementClient = managementClient.users();
-
         managementClient.requestToken().execute();
 
+        authenticationClient = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
+        authenticationClient.setHost("https://core.xauth.lucfish.com");
+
+        usersManagementClient = managementClient.users();
         email = randomString() + "@gmail.com";
         password = "123";
         username = "gmail" + randomString();
@@ -59,7 +63,7 @@ public class UsersManagementClientTest {
 
     @Test
     public void create() throws IOException, GraphQLException {
-        user=usersManagementClient.create(new CreateUserInput().withUsername("jjjj")).execute();
+        user = usersManagementClient.create(new CreateUserInput().withUsername("jjjj")).execute();
     }
 
     @Test
@@ -93,7 +97,7 @@ public class UsersManagementClientTest {
     public void delete() throws IOException, GraphQLException {
         CommonMessage message = usersManagementClient.delete(user.getId()).execute();
         user = null;
-       // Assert.assertEquals(message.getCode().intValue(), 200);
+        // Assert.assertEquals(message.getCode().intValue(), 200);
     }
 
     @Test
@@ -125,6 +129,10 @@ public class UsersManagementClientTest {
 
     @Test
     public void checkLogin() throws IOException, GraphQLException {
-        System.out.println(managementClient.checkLoginStatus(new CheckLoginStatusParam()).execute());
+        String phone = "18000000001";
+        String code = "12313";
+        User user = authenticationClient.loginByPhoneCode(new LoginByPhoneCodeInput(phone, code, true)).execute();
+        JwtTokenStatus status = managementClient.checkLoginStatus(new CheckLoginStatusParam(user.getToken())).execute();
+        Assert.assertNotNull(status.getData());
     }
 }
