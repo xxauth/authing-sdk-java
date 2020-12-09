@@ -129,12 +129,30 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
-     * 发送手机验证码
+     * 登陆时，发送手机验证码
      */
     fun sendSmsCode(phone: String): HttpCall<CommonMessage> {
         val url = "$host/api/sms/send"
         val json = "{ \"phone\": \"$phone\" }";
 
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
+    }
+
+    /**
+     * 通过手机验证码重置用户密码，发送手机验证码
+     */
+    fun sendResetPasswordByPhoneSmsCode(phone: String): HttpCall<CommonMessage> {
+        val url = "$host/api/sms/send"
+        val json = "{ \"type\": \"resetPasswordByPhone\" , \"phone\": \"$phone\" }";
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
+    }
+
+    /**
+     * 通过邮箱验证码重置用户密码，发送手机验证码
+     */
+    fun sendResetPasswordByEmailSmsCode(email: String): HttpCall<CommonMessage> {
+        val url = "$host/api/sms/send"
+        val json = "{ \"type\": \"resetPasswordByEmail\" , \"email\": \"$email\" }";
         return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
     }
 

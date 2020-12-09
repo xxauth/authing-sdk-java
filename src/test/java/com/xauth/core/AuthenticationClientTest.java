@@ -54,6 +54,18 @@ public class AuthenticationClientTest {
     }
 
     @Test
+    public void sendResetPasswordByPhoneSmsCode() throws IOException {
+        String phone = "17611161550";
+        System.out.println(client.sendResetPasswordByPhoneSmsCode(phone).execute());
+    }
+
+    @Test
+    public void sendResetPasswordByEmailSmsCode() throws IOException {
+        String email = "17611161550@163.com";
+        System.out.println(client.sendResetPasswordByEmailSmsCode(email).execute());
+    }
+
+    @Test
     public void loginByEmail() throws IOException, GraphQLException {
         String email = "test@test.com";
         String password = "123456";
