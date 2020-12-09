@@ -54,15 +54,9 @@ public class AuthenticationClientTest {
     }
 
     @Test
-    public void sendResetPasswordByPhoneSmsCode() throws IOException {
+    public void sendResetPasswordSmsCode() throws IOException {
         String phone = "17611161550";
-        System.out.println(client.sendResetPasswordByPhoneSmsCode(phone).execute());
-    }
-
-    @Test
-    public void sendResetPasswordByEmailSmsCode() throws IOException {
-        String email = "17611161550@163.com";
-        System.out.println(client.sendResetPasswordByEmailSmsCode(email).execute());
+        System.out.println(client.sendResetPasswordSmsCode(phone).execute());
     }
 
     @Test
