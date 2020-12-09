@@ -23,10 +23,10 @@ import javax.crypto.Cipher
 abstract class BaseClient(internal val userPoolId: String) {
     // 可选参数
     var host: String = "https://core.xauth.lucfish.com"
-    var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4xKeUgQ+Aoz7TLfAfs9+paePb" +
-            "5KIofVthEopwrXFkp8OCeocaTHt9ICjTT2QeJh6cZaDaArfZ873GPUn00eOIZ7Ae" +
-            "+TiA2BKHbCvloW3w5Lnqm70iSsUi5Fmu9/2+68GZRH9L7Mlh8cFksCicW2Y2W2uM" +
-            "GKl64GDcIq3au+aqJQIDAQAB"
+    var publicKey: String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXF2kRW8oaTPA7KZqqsAuDmmhh" +
+            "fa1IbxjK3zincLjV5ICJBacxTrKM6T8w/7zTgO/dRin2fACO5d65eOE1R65L2Syt" +
+            "FWjSMefU8E36cHaykoi0o79qSxlpN7UPnRR1n60kRqlcM0IZ9XOlFszK05aLOrVh" +
+            "Hdspg836OaW98JYl0QIDAQAB"
 
     /**
      * 每次发出请求时会附加在请求头的 AccessToken

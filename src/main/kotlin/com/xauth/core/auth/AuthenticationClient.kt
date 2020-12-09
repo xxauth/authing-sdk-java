@@ -177,7 +177,7 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
         code: String,
         newPassword: String
     ): GraphQLCall<ResetPasswordResponse, CommonMessage> {
-        val param = ResetPasswordParam(null, email, code, encrypt(newPassword))
+        val param = ResetPasswordParam(null, email, code, encrypt("123456"))
 
         return createGraphQLCall(
             param.createRequest(),

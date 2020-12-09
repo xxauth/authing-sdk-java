@@ -20,7 +20,7 @@ public class AuthenticationClientTest {
     @Before
     public void before() {
         client = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
-        client.setHost("https://core.xauth.lucfish.com");
+        client.setHost("http://localhost:7001");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class AuthenticationClientTest {
 
     @Test
     public void sendResetPasswordSmsCode() throws IOException {
-        String phone = "17611161550";
+        String phone = "+8617743127018";
         System.out.println(client.sendResetPasswordSmsCode(phone).execute());
     }
 
@@ -108,12 +108,13 @@ public class AuthenticationClientTest {
 
     @Test
     public void resetPasswordByPhoneCode() throws IOException, GraphQLException {
-        client.resetPasswordByPhoneCode("17611161550", "1234", "123456").execute();
+        client.resetPasswordByPhoneCode("+8617743127018", "058636", "123456").execute();
     }
 
     @Test
     public void resetPasswordByEmailCode() throws IOException, GraphQLException {
         client.resetPasswordByEmailCode("1498881550@qq.com", "1234", "123456").execute();
+
     }
 
     @Test
