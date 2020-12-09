@@ -20,7 +20,7 @@ public class AuthenticationClientTest {
     @Before
     public void before() {
         client = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
-        client.setHost("http://localhost:7001");
+        client.setHost("https://console.xauth.lucfish.com");
     }
 
     @Test
@@ -49,13 +49,13 @@ public class AuthenticationClientTest {
 
     @Test
     public void sendSmsCode() throws IOException {
-        String phone = "17611161550";
+        String phone = "17743127018";
         System.out.println(client.sendSmsCode(phone).execute());
     }
 
     @Test
     public void sendResetPasswordSmsCode() throws IOException {
-        String phone = "+8617743127018";
+        String phone = "17743127018";
         System.out.println(client.sendResetPasswordSmsCode(phone).execute());
     }
 
@@ -77,8 +77,8 @@ public class AuthenticationClientTest {
 
     @Test
     public void loginByPhoneCode() throws IOException, GraphQLException {
-        String phone = "16620981522";
-        String code = "2190";
+        String phone = "17743127018";
+        String code = "159284";
         User user = client.loginByPhoneCode(new LoginByPhoneCodeInput(phone, code, true)).execute();
         Assert.assertEquals(user.getPhone(), phone);
     }
@@ -108,7 +108,7 @@ public class AuthenticationClientTest {
 
     @Test
     public void resetPasswordByPhoneCode() throws IOException, GraphQLException {
-        client.resetPasswordByPhoneCode("+8617743127018", "058636", "123456").execute();
+        client.resetPasswordByPhoneCode("17743127018", "067657", "123456").execute();
     }
 
     @Test
