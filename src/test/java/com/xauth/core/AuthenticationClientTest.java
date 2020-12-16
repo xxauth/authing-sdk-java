@@ -20,7 +20,7 @@ public class AuthenticationClientTest {
     @Before
     public void before() {
         client = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
-        client.setHost("http://127.0.0.1:7001");
+        client.setHost("https://core.xauth.lucfish.com");
     }
 
     @Test
