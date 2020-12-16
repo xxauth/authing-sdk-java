@@ -51,7 +51,7 @@ class GraphQLCall<TData, TResult>(
                     val graphQLResponse: GraphQLResponse<TData> = adapter.fromJson(response.body?.string())
                     if (graphQLResponse.errors != null && graphQLResponse.errors.isNotEmpty()) {
                         val firstError = graphQLResponse.errors[0].message
-                        callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
+//                        callback.onFailure(GraphQLResponse.ErrorInfo(firstError?.code ?: 500, firstError?.message))
                     }
                     callback.onSuccess(resolver(graphQLResponse.data!!))
                 } else {
@@ -60,7 +60,7 @@ class GraphQLCall<TData, TResult>(
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
-                callback.onFailure(GraphQLResponse.ErrorInfo(500, e.message))
+//                callback.onFailure(GraphQLResponse.ErrorInfo(500, e.message))
             }
         }
         // 开始异步请求

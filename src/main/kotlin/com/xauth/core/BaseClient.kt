@@ -6,11 +6,13 @@ import com.xauth.core.graphql.GraphQLResponse
 import com.xauth.core.http.HttpCall
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.xauth.core.types.ErrorInfoTypeAdaptor
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.lang.reflect.Type
 import java.security.KeyFactory
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
@@ -47,7 +49,7 @@ abstract class BaseClient(internal val userPoolId: String) {
         }
 
     private val client: OkHttpClient = OkHttpClient()
-    private val json = GsonBuilder().create()
+    private val json = GsonBuilder().registerTypeAdapter(GraphQLResponse.ErrorInfo::class.java, ErrorInfoTypeAdaptor()).create()
 
     /**
      * 密码加密方法

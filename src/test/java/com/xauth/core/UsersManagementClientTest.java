@@ -32,7 +32,7 @@ public class UsersManagementClientTest {
     @Before
     public void before() throws IOException, GraphQLException {
         managementClient = new ManagementClient("7f74f487bc121542ad0c7e3d", "lpRzBN37G6ANWnRAz02yexQGz05wkOrr");
-        managementClient.setHost("https://core.xauth.lucfish.com");
+        managementClient.setHost("https://console.xauth.lucfish.com");
         managementClient.requestToken().execute();
 
         authenticationClient = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
