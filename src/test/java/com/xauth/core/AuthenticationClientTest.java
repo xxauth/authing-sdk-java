@@ -86,7 +86,7 @@ public class AuthenticationClientTest {
     @Test
     public void loginByPhonePassword() throws IOException, GraphQLException {
         String phone = "17743127018";
-        String password = "123456";
+        String password = "12345";
         User user = client.loginByPhonePassword(new LoginByPhonePasswordInput(phone, password)).execute();
         System.out.println(user);
 //        Assert.assertEquals(user.getPhone(), phone);
