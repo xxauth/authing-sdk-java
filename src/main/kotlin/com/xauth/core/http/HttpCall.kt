@@ -49,7 +49,7 @@ class HttpCall<TResult>(private val call: Call, private val adapter: TypeAdapter
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
-//                callback.onFailure(GraphQLResponse.ErrorInfo(500, e.message))
+                callback.onFailure(GraphQLResponse.ErrorInfo(500, e.message))
             }
         }
         // 开始异步请求

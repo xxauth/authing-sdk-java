@@ -20,7 +20,7 @@ public class AuthenticationClientTest {
     @Before
     public void before() {
         client = new AuthenticationClient("7f74f487bc121542ad0c7e3d");
-        client.setHost("https://core.xauth.lucfish.com");
+        client.setHost("https://console.xauth.lucfish.com");
     }
 
     @Test
@@ -84,9 +84,9 @@ public class AuthenticationClientTest {
     }
 
     @Test
-    public void loginByPhonePassword() throws IOException, GraphQLException {
+    public void loginByPhonePassword()  throws IOException, GraphQLException {
         String phone = "17743127018";
-        String password = "12345";
+        String password = "d3c41b15f8c9d6892214e7739d725189";
         User user = client.loginByPhonePassword(new LoginByPhonePasswordInput(phone, password)).execute();
         System.out.println(user);
 //        Assert.assertEquals(user.getPhone(), phone);
