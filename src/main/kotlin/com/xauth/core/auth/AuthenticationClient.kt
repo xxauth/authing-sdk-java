@@ -301,6 +301,31 @@ class AuthenticationClient(userPoolId: String) : BaseClient(userPoolId) {
     }
 
     /**
+     * 社会化登陆绑定
+     */
+    fun linkAccount(primaryUserToken: String, secondaryUserToken: String): HttpCall<CommonMessage> {
+        val url = "$host/api/users/link"
+        val json = "{ \"primaryUserToken\": \"$primaryUserToken\",\"secondaryUserToken\": \"$secondaryUserToken\" }";
+
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
+    }
+
+    /**
+     * 社会化登陆解绑
+     */
+    fun unlinkAccount(
+        token: String,
+        provider: String,
+        openid: String
+    ): HttpCall<CommonMessage> {
+
+        val url = "$host/api/users/unlink"
+        val json = "{ \"token\": \"$token\",\"provider\": \"$provider\",\"openid\": \"$openid\" }";
+
+        return createHttpPostCall(url, json, object : TypeToken<CommonMessage>() {})
+    }
+
+    /**
      * 注销当前用户
      */
     fun logout(): GraphQLCall<Unit, Unit> {

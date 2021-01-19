@@ -1314,7 +1314,8 @@ data class Mutation(
     var addWhitelist: List<WhiteList>,
     /** @param [removeWhitelist] removeWhitelist */
     @SerializedName("removeWhitelist")
-    var removeWhitelist: List<WhiteList>
+    var removeWhitelist: List<WhiteList>,
+
 )
 
 
@@ -10287,3 +10288,5 @@ query whitelist(${'$'}type: WhitelistType!) {
 }
 """
 }
+
+
