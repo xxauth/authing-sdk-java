@@ -504,7 +504,13 @@ data class Identity(
     var provider: String? = null,
     /** @param [userPoolId] userPoolId */
     @SerializedName("userPoolId")
-    var userPoolId: String? = null
+    var userPoolId: String? = null,
+    /** @param [refreshToken] refreshToken */
+    @SerializedName("refreshToken")
+    var refreshToken: String? = null,
+    /** @param [accessToken] accessToken */
+    @SerializedName("accessToken")
+    var accessToken: String? = null
 )
 
 
@@ -1314,7 +1320,7 @@ data class Mutation(
     var addWhitelist: List<WhiteList>,
     /** @param [removeWhitelist] removeWhitelist */
     @SerializedName("removeWhitelist")
-    var removeWhitelist: List<WhiteList>,
+    var removeWhitelist: List<WhiteList>
 
 )
 
