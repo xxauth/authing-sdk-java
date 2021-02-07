@@ -39,14 +39,14 @@ public class UsersManagementClientTest {
         authenticationClient.setHost("https://core.xauth.lucfish.com");
 
         usersManagementClient = managementClient.users();
-        email = randomString() + "@gmail.com";
-        password = "123";
-        username = "gmail" + randomString();
-        user = usersManagementClient.create(new CreateUserInput()
-                .withEmail(email)
-                .withPassword(password)
-                .withUsername(username)
-                .build()).execute();
+//        email = randomString() + "@gmail.com";
+//        password = "123";
+//        username = "gmail" + randomString();
+//        user = usersManagementClient.create(new CreateUserInput()
+//                .withEmail(email)
+//                .withPassword(password)
+//                .withUsername(username)
+//                .build()).execute();
     }
 
     public void after() throws IOException, GraphQLException {

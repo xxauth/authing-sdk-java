@@ -9846,6 +9846,15 @@ query user(${'$'}id: String) {
     phoneVerified
     unionid
     openid
+    identities {
+      openid
+      userIdInIdp
+      userId
+      connectionId
+      isSocial
+      provider
+      userPoolId
+    }
     nickname
     registerSource
     photo
