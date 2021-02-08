@@ -74,7 +74,7 @@ public class UsersManagementClientTest {
 
     @Test
     public void detail() throws IOException, GraphQLException {
-        User result = usersManagementClient.detail("9ab250c5-2876-4cef-b60c-e9c8551a16fc").execute();
+        User result = usersManagementClient.detail("d0047ffa-9d42-48d7-9091-0d8e765c7074").execute();
 //        Assert.assertEquals(result.getEmail(), email);
     }
 

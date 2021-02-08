@@ -9854,6 +9854,8 @@ query user(${'$'}id: String) {
       isSocial
       provider
       userPoolId
+      refreshToken
+      accessToken
     }
     nickname
     registerSource
